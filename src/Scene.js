@@ -1,7 +1,8 @@
 import {
   PerspectiveCamera,
   Scene,
-  WebGLRenderer
+  WebGLRenderer,
+  AmbientLight
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 

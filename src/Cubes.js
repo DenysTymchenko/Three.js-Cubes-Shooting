@@ -1,13 +1,12 @@
 import {
   BoxGeometry,
   Mesh,
-  MeshBasicMaterial,
   MeshStandardMaterial,
 } from 'three';
 import { scene } from './Scene';
 
 const geometry = new BoxGeometry(5, 5, 5);
-const material = new MeshBasicMaterial();
+const material = new MeshStandardMaterial();
 const height = 5;
 
 function generateCubes() {
