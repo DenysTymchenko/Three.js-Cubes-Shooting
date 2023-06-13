@@ -13,4 +13,4 @@ directionalLight.shadow.camera.near = -40;
 directionalLight.shadow.camera.right = 40;
 directionalLight.shadow.camera.left = -40;
 
-scene.add(directionalLight, helper, cameraHelper);
+scene.add(directionalLight);
