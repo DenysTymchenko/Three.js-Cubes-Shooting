@@ -13,12 +13,4 @@ directionalLight.shadow.camera.near = -40;
 directionalLight.shadow.camera.right = 40;
 directionalLight.shadow.camera.left = -40;
 
-
-
-const helper = new DirectionalLightHelper(directionalLight, 5);
-const cameraHelper = new CameraHelper(directionalLight.shadow.camera);
-
-console.log(directionalLight.shadow.camera);
-
-
 scene.add(directionalLight, helper, cameraHelper);
