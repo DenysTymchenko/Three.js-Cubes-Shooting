@@ -2,7 +2,6 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
-  AmbientLight
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
@@ -20,6 +19,7 @@ export const scene = new Scene();
 
 // Camera
 const camera = new PerspectiveCamera(75, sizes.width / sizes.height);
+camera.position.y = 2;
 camera.position.z = -20;
 scene.add(camera);
 
