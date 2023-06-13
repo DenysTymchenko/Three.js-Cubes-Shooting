@@ -19,8 +19,9 @@ export const scene = new Scene();
 
 // Camera
 const camera = new PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.y = 2;
-camera.position.z = -20;
+//camera.position.x = 25;
+camera.position.y = 1;
+camera.position.z = -15;
 scene.add(camera);
 
 // Renderer
