@@ -1,5 +1,5 @@
-import { DirectionalLight, DirectionalLightHelper } from 'three';
-import { scene } from './Scene';
+import { DirectionalLight } from 'three';
+import { scene } from '../Scene';
 
 const directionalLight = new DirectionalLight(0xffffff, 0.5);
 directionalLight.castShadow = true;

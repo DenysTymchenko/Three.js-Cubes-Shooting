@@ -1,5 +1,10 @@
-import './src/Scene';
-import './src/Floor';
-import './src/CubesGenerator';
-import './src/AmbientLight';
-import './src/DirectionalLight';
+import './src/CubeParameters'
+import './src/Scene/Scene';
+import './src/Scene/Meshes/FloorMesh';
+import './src/Scene/Meshes/CubesMeshes';
+import './src/Scene/Lights/AmbientLight';
+import './src/Scene/Lights/DirectionalLight';
+import './src/Physics-world/World';
+import './src/Physics-world/Bodies/FloorBody';
+import './src/Physics-world/Bodies/CubesBodies';
+import './src/Physics-world/doPhysics';

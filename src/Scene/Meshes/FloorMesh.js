@@ -1,7 +1,8 @@
 import { Mesh, MeshStandardMaterial, PlaneGeometry } from 'three';
-import { scene } from './Scene';
+import { scene } from '../Scene';
 
-const floor = new Mesh(
+// Three.js floor
+const floorMesh = new Mesh(
   new PlaneGeometry(1000, 1000),
   new MeshStandardMaterial({
     color: '#E3E3E3',
@@ -9,7 +10,7 @@ const floor = new Mesh(
     roughness: 0.4,
   }),
 )
-floor.rotation.x = - Math.PI / 2;
-floor.receiveShadow = true;
+floorMesh.rotation.x = - Math.PI / 2;
+floorMesh.receiveShadow = true;
 
-scene.add(floor);
+scene.add(floorMesh);
