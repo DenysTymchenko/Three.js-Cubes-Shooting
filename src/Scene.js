@@ -2,7 +2,7 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
-  PCFSoftShadowMap, 
+  PCFSoftShadowMap,
   Fog,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
