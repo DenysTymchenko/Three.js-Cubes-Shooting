@@ -4,7 +4,7 @@ import { scene } from './Scene';
 const floor = new Mesh(
   new PlaneGeometry(1000, 1000),
   new MeshStandardMaterial({
-    color: 0x66767f,
+    color: '#E3E3E3',
     metalness: 0.3,
     roughness: 0.4,
   }),

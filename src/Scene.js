@@ -2,6 +2,8 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
+  PCFSoftShadowMap, 
+  Fog,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
@@ -16,6 +18,7 @@ const canvas = document.querySelector('.webgl');
 
 // Scene
 export const scene = new Scene();
+scene.fog = new Fog(0x000000, 0, 40);
 
 // Camera
 const camera = new PerspectiveCamera(75, sizes.width / sizes.height);
@@ -27,6 +30,8 @@ scene.add(camera);
 // Renderer
 const renderer = new WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = PCFSoftShadowMap;
 renderer.render(scene, camera);
 
 // Controls
