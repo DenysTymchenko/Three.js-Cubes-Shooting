@@ -13,7 +13,7 @@ const meshes = []; // Three.js meshes will be contained here
 // Cube parameters
 const cubeWidth = 1;
 const cubeHeight = 1;
-const cubeDepth = 3;
+const cubeDepth = 1;
 
 // Physics world
 const world = new CANNON.World();
@@ -27,24 +27,27 @@ const height = 3;
 function generateCubes() {
   for (let x = 0; x < 3; x++) {
     for (let y = 0; y < height * cubeHeight; y += cubeHeight) {
-      // Because our boxes have height, they will be placed a little bit under the floor by default.
-      // To fix that, we need to find an offset to push our cubes up by adding the offset to the y coordinate.
-      const yOffset = cubeHeight / 2;
+      for (let z = 0; z < 3; z++) {
+        // Because our boxes have height, they will be placed a little bit under the floor by default.
+        // To fix that, we need to find an offset to push our cubes up by adding the offset to the y coordinate.
+        const yOffset = cubeHeight / 2;
 
-      const cubeBody = new CANNON.Body({
-        mass: 1,
-        position: new CANNON.Vec3(x, y + yOffset, 0),
-        shape,
-      });
-      bodies.push(cubeBody);
-      world.addBody(cubeBody);
+        const cubeBody = new CANNON.Body({
+          mass: 1,
+          position: new CANNON.Vec3(x, y + yOffset, z),
+          shape,
+        });
+        bodies.push(cubeBody);
+        world.addBody(cubeBody);
 
-      const cubeMesh = new Mesh(geometry, material);
-      cubeMesh.position.set(x, y + yOffset, 0);
-      cubeMesh.receiveShadow = true;
-      cubeMesh.castShadow = true;
-      meshes.push(cubeMesh);
-      scene.add(cubeMesh);
+        const cubeMesh = new Mesh(geometry, material);
+        cubeMesh.position.set(x, y + yOffset, z);
+        cubeMesh.receiveShadow = true;
+        cubeMesh.castShadow = true;
+        console.log(cubeMesh.position);
+        meshes.push(cubeMesh);
+        scene.add(cubeMesh);
+      }
     }
   }
 }
