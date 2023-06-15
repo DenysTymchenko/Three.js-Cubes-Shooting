@@ -1,6 +1,6 @@
 export const cubeParameters = {
-  width: 6,
-  height: 6,
-  depth: 6,
+  width: 1,
+  height: 1,
+  depth: 1,
   towerHeight: 3, // Cubes tower height
 }

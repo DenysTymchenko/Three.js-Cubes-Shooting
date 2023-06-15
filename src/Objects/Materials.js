@@ -1,5 +1,5 @@
 import * as CANNON from 'cannon-es';
-import { world } from '../World';
+import { world } from '../World.js';
 
 export const floorMaterial = new CANNON.Material('floor');
 export const cubeMaterial = new CANNON.Material('cube');

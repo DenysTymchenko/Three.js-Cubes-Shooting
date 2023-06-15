@@ -1,7 +1,6 @@
 import { Clock } from 'three'
-import { world } from './World'
-import { meshes } from '../Scene/Meshes/CubesMeshes'
-import { bodies } from './Bodies/CubesBodies'
+import { world } from './World.js'
+import {bodies, meshes} from './Objects/Cubes.js';
 
 const clock = new Clock()
 let oldElapsedTime = 0
