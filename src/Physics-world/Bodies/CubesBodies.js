@@ -1,9 +1,14 @@
 import * as CANNON from 'cannon-es';
 import { world } from '../World';
+import { cubeMaterial } from './Materials.js';
 import { cubeParameters } from '../../CubeParameters';
 
 export const bodies = []; // CANNON bodies will be contained here
-const shape = new CANNON.Box(new CANNON.Vec3(cubeParameters.width / 2, cubeParameters.height / 2, cubeParameters.depth / 2));
+const shape = new CANNON.Box(new CANNON.Vec3(
+  cubeParameters.width / 2,
+  cubeParameters.height / 2,
+  cubeParameters.depth / 2,
+));
 
 function generateCubesBodies() {
   for (let x = 0; x < 3; x++) {
@@ -11,8 +16,9 @@ function generateCubesBodies() {
       for (let z = 0; z < 3; z++) {
         const cubeBody = new CANNON.Body({
           mass: 1,
-          position: new CANNON.Vec3(x, y + cubeParameters.yOffset, z),
+          position: new CANNON.Vec3(x, y, z),
           shape,
+          material: cubeMaterial,
         });
         bodies.push(cubeBody);
         world.addBody(cubeBody);

@@ -18,6 +18,7 @@ function doPhysics() {
 
   for (let i = 0; i < bodies.length; i++) {
     meshes[i].position.copy(bodies[i].position);
+    meshes[i].quaternion.copy(bodies[i].quaternion);
   }
 }
 

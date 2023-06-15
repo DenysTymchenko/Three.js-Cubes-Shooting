@@ -17,7 +17,7 @@ function generateCubesMeshes() {
     for (let y = 0; y < cubeParameters.towerHeight * cubeParameters.height; y += cubeParameters.height) {
       for (let z = 0; z < 3; z++) {
         const cubeMesh = new Mesh(geometry, material);
-        cubeMesh.position.set(x, y + cubeParameters.yOffset, z);
+        cubeMesh.position.set(x, y, z);
         cubeMesh.receiveShadow = true;
         cubeMesh.castShadow = true;
         meshes.push(cubeMesh);
