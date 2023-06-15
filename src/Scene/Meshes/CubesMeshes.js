@@ -13,9 +13,9 @@ const geometry = new BoxGeometry(cubeParameters.width, cubeParameters.height, cu
 const material = new MeshStandardMaterial({ color: '#d13610', metalness: 0.3, roughness: 0.4, });
 
 function generateCubesMeshes() {
-  for (let x = 0; x < 3; x++) {
+  for (let x = 0; x < cubeParameters.width * 3; x+= cubeParameters.width) {
     for (let y = 0; y < cubeParameters.towerHeight * cubeParameters.height; y += cubeParameters.height) {
-      for (let z = 0; z < 3; z++) {
+      for (let z = 0; z < cubeParameters.depth * 3; z+= cubeParameters.depth) {
         const cubeMesh = new Mesh(geometry, material);
         cubeMesh.position.set(x, y, z);
         cubeMesh.receiveShadow = true;

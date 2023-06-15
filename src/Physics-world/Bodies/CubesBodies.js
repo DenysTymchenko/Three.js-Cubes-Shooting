@@ -11,9 +11,9 @@ const shape = new CANNON.Box(new CANNON.Vec3(
 ));
 
 function generateCubesBodies() {
-  for (let x = 0; x < 3; x++) {
+  for (let x = 0; x < cubeParameters.width * 3; x+= cubeParameters.width) {
     for (let y = 0; y < cubeParameters.towerHeight * cubeParameters.height; y += cubeParameters.height) {
-      for (let z = 0; z < 3; z++) {
+      for (let z = 0; z < cubeParameters.depth * 3; z+= cubeParameters.depth) {
         const cubeBody = new CANNON.Body({
           mass: 1,
           position: new CANNON.Vec3(x, y, z),
