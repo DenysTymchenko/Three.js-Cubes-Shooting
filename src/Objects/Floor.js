@@ -13,7 +13,6 @@ const floorBody = new CANNON.Body(
     material: floorMaterial,
   }
 );
-
 // Setting floor position lower, so the cubes would be placed on top of it.
 floorBody.position.y = - cubeParameters.height / 2;
 floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(- 1, 0, 0), Math.PI * 0.5)
@@ -29,10 +28,8 @@ const floorMesh = new Mesh(
     roughness: 0.4,
   }),
 )
-
-// Setting floor position lower, so the cubes would be placed on top of it.
-floorMesh.position.y = - cubeParameters.height / 2;
-floorMesh.rotation.x = - Math.PI / 2;
+floorMesh.position.copy(floorBody.position);
+floorMesh.quaternion.copy(floorBody.quaternion)
 floorMesh.receiveShadow = true;
 
 scene.add(floorMesh);
