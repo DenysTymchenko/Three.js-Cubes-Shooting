@@ -1,5 +1,5 @@
+import * as THREE from 'three';
 import Experience from '../Experience.js';
-import { AmbientLight, DirectionalLight } from 'three';
 
 export default class Environment {
   constructor() {
@@ -11,26 +11,26 @@ export default class Environment {
   }
 
   setAmbientLight() {
-    this.ambientLight = new AmbientLight(0xffffff, 0.5);
+    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     this.scene.add(this.ambientLight);
   }
 
   setDirectionalLight() {
-    this.directionalLight = new DirectionalLight(0xffffff, 0.5);
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
     this.directionalLight.castShadow = true;
-    this.directionalLight.position.set(-3, 2.5, 0);
+    this.directionalLight.position.set(-5, 8, 0);
     this.directionalLight.target.position.set(0, 0, 0);
 
     this.directionalLight.shadow.mapSize.set(1024, 1024);
 
-    this.directionalLight.shadow.camera.top = 10;
-    this.directionalLight.shadow.camera.bottom = 0;
-    this.directionalLight.shadow.camera.right = 40;
-    this.directionalLight.shadow.camera.left = -40;
-    this.directionalLight.shadow.camera.far = 40;
-    this.directionalLight.shadow.camera.near = -40;
+    this.directionalLight.shadow.camera.top = 20;
+    this.directionalLight.shadow.camera.bottom = -15;
+    this.directionalLight.shadow.camera.right = 20;
+    this.directionalLight.shadow.camera.left = -20;
+    this.directionalLight.shadow.camera.far = 20;
+    this.directionalLight.shadow.camera.near = -5;
 
-    this.scene.add(this.directionalLight);
-
+    const helper = new THREE.CameraHelper(this.directionalLight.shadow.camera);
+    this.scene.add(this.directionalLight, helper);
   }
 }
