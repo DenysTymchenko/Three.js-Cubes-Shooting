@@ -1,7 +1,6 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 import Experience from './Experience';
-import { PerspectiveCamera } from 'three';
 
 export default class Camera {
   constructor() {
@@ -10,24 +9,27 @@ export default class Camera {
     this.scene = this.experience.scene;
     this.canvas = this.experience.canvas;
 
+
     this.setInstance(); // Creating camera
-    this.setOrbitControls(); // Adding OrbitControls
+    this.setPointerLockControls(); // Adding OrbitControls
+
+    window.addEventListener('keydown', (e) => this.move(e.code));
   }
 
   setInstance() {
-    this.instance = new PerspectiveCamera(
+    this.instance = new THREE.PerspectiveCamera(
       75,
       this.sizes.width / this.sizes.height,
       0.01,
       100
     );
     this.instance.position.set(0, 1, -15);
+    this.instance.lookAt(0, 0, 0);
     this.scene.add(this.instance);
   }
 
-  setOrbitControls() {
-    this.controls = new OrbitControls(this.instance, this.canvas);
-    this.controls.enableDamping = true;
+  setPointerLockControls() {
+    this.controls = new PointerLockControls(this.instance, this.canvas);
   }
 
   resize() {
@@ -35,7 +37,31 @@ export default class Camera {
     this.instance.updateProjectionMatrix();
   }
 
-  update() {
-    this.controls.update();
+  move(key) {
+    switch (key) {
+      case 'KeyW':
+      case 'ArrowUp':
+        this.controls.moveForward(0.5);
+        break;
+
+      case 'KeyA':
+      case 'ArrowLeft':
+        this.controls.moveRight(-0.5);
+        break;
+
+      case 'KeyS':
+      case 'ArrowDown':
+        this.controls.moveForward(-0.5);
+        break;
+
+      case 'KeyD':
+      case 'ArrowRight':
+        this.controls.moveRight(0.5);
+        break;
+
+      case 'Escape':
+        this.experience.handleHint()
+        break;
+    }
   }
 }

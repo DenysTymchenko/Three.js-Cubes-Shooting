@@ -10,10 +10,14 @@ import PhysicObjects from './PhysicWorld/PhysicObjects.js';
 let instance = null
 
 export default class Experience {
-  constructor(canvas) {
+  constructor(hint, canvas) {
     if (instance) return instance;
     instance = this;
 
+    this.hint = {
+      DOM: hint,
+      hidden: false,
+    }
     this.canvas = canvas;
     this.sizes = new Sizes();
     this.time = new Time();
@@ -26,18 +30,33 @@ export default class Experience {
 
     this.configureScene();
 
-    this.sizes.on('resize', () => this.resize())
-    this.time.on('tick', () => this.update())
-    console.log(this)
+    this.hint.DOM.addEventListener('click', () => this.handleHint());
+    this.hint.DOM.addEventListener('pointerlockchange', () => console.log('check'))
+
+    this.sizes.on('resize', () => this.resize());
+    this.time.on('tick', () => this.update());
   }
 
   createPhysicsWorld() {
     this.physicsWorld = new CANNON.World();
     this.physicsWorld.gravity.set(0, -9.82, 0);
+    this.physicsWorld.allowSleep = true
   }
 
   configureScene() {
     this.scene.fog = new THREE.Fog(0x000000, 0, 100);
+  }
+
+  handleHint() {
+    if (this.hint.hidden) {
+      this.hint.DOM.style.display = 'block';
+      this.camera.controls.unlock();
+    } else {
+      this.hint.DOM.style.display = 'none';
+      this.camera.controls.lock();
+    }
+
+    this.hint.hidden = !this.hint.hidden;
   }
 
   resize() {
@@ -46,9 +65,8 @@ export default class Experience {
   }
 
   update() {
-    this.camera.update();
-    this.renderer.update();
     this.simulatePhysics();
+    this.renderer.update();
   }
 
   simulatePhysics() {
