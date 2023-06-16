@@ -56,9 +56,15 @@ export default class Experience {
     this.physicsWorld.step(1 / 60, this.time.delta / 1000, 3);
 
     for (let i = 0; i < this.world.cubesTower.cubes.length; i++) {
+      // updating position
       this.world.cubesTower.cubes[i].position.copy(
         this.physicObjects.physicsCubesTower.bodies[i].position
-      )
+      );
+
+      // updating rotation
+      this.world.cubesTower.cubes[i].quaternion.copy(
+        this.physicObjects.physicsCubesTower.bodies[i].quaternion
+      );
     }
   }
 
