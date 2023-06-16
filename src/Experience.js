@@ -24,6 +24,8 @@ export default class Experience {
     this.createPhysicsWorld();
     this.physicObjects = new PhysicObjects();
 
+    this.configureScene();
+
     this.sizes.on('resize', () => this.resize())
     this.time.on('tick', () => this.update())
     console.log(this)
@@ -32,6 +34,10 @@ export default class Experience {
   createPhysicsWorld() {
     this.physicsWorld = new CANNON.World();
     this.physicsWorld.gravity.set(0, -9.82, 0);
+  }
+
+  configureScene() {
+    this.scene.fog = new THREE.Fog(0x000000, 0, 100);
   }
 
   resize() {
