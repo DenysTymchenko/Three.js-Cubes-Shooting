@@ -3,6 +3,7 @@ import CubesTower from './CubesTower.js';
 import ShootingObject from './ShootingObject.js';
 import Experience from '../Experience.js';
 import Environment from './Environment.js';
+import Constaints from './Constraints.js';
 
 export default class World {
   constructor() {
@@ -16,6 +17,7 @@ export default class World {
       this.floor = new Floor();
       this.cubesTower = new CubesTower();
       this.shootingObject = new ShootingObject();
+      this.constraints = new Constaints();
     })
   }
 }

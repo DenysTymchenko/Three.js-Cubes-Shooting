@@ -86,6 +86,18 @@ export default class Experience {
         this.world.shootingObject.shootingObjectsBodies[i].quaternion
       )
     }
+
+    // Constraints physics
+    for (let i = 0; i < this.world.constraints.constraintsMeshes.length; i++) {
+      // updating position
+      this.world.constraints.constraintsMeshes[i].position.copy(
+        this.world.constraints.constraintsBodies[i].position
+      );
+      // updating rotation
+      this.world.constraints.constraintsMeshes[i].quaternion.copy(
+        this.world.constraints.constraintsBodies[i].quaternion
+      );
+    }
   }
 
 }

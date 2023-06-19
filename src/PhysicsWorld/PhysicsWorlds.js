@@ -3,6 +3,7 @@ import PhysicsFloor from './PhysicsFloor.js';
 import PhysicsCubesTower from './PhysicsCubesTower.js';
 import Materials from '../Utils/Materials.js';
 import PhysicsShootingObject from './PhysicsShootingObject.js';
+import PhysicsConstraints from './PhysicsConstraints.js';
 
 let physicsWorldInstance = null;
 
@@ -19,6 +20,7 @@ export default class PhysicsWorlds {
     this.physicsFloor = new PhysicsFloor();
     this.physicsCubesTower = new PhysicsCubesTower();
     this.physicsShootingObject = new PhysicsShootingObject();
+    this.physicsConstaints = new PhysicsConstraints();
   }
 
   setInstance() {
