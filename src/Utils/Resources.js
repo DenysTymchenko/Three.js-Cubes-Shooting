@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 import EventEmitter from './EventEmmiter.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import sources from '../sources.js';
 
 export default class Resources extends EventEmitter {
-  constructor(sources) {
+  constructor() {
     super();
-    this.sources = sources;
-    this.items = {};
+    this.sources = sources; // All textures and models (their names, types, and paths) are stored here
+    this.items = {}; // All loaded textures/models will be stored here
     this.toLoad = this.sources.length;
     this.loaded = 0;
 

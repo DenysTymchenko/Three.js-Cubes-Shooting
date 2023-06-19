@@ -4,9 +4,8 @@ import Time from './Utils/Time.js';
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
 import World from './World/World.js';
-import PhysicsWorlds from './PhysicsWorld/PhysicsWorlds.js';
+import PhysicsWorld from './PhysicsWorld/PhysicsWorld.js';
 import Resources from './Utils/Resources.js';
-import sources from './sources.js';
 
 let instance = null
 
@@ -20,11 +19,11 @@ export default class Experience {
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
-    this.resources = new Resources(sources);
+    this.resources = new Resources();
     this.camera = new Camera();
     this.renderer = new Renderer();
-    this.physicsWorld = new PhysicsWorlds();
-    this.world = new World();
+    this.physicsWorld = new PhysicsWorld(); // All CANNON.js params, contact materials, shapes, etc. - are stored here.
+    this.world = new World(); // All that we can see on screen - is stored here. (CANNON.js bodies are created here).
 
     window.addEventListener('click', () => {
       this.camera.controls.isLocked ? this.world.shootingObject.shoot() : this.camera.controls.lock();
@@ -93,6 +92,7 @@ export default class Experience {
       this.world.constraints.constraintsMeshes[i].position.copy(
         this.world.constraints.constraintsBodies[i].position
       );
+
       // updating rotation
       this.world.constraints.constraintsMeshes[i].quaternion.copy(
         this.world.constraints.constraintsBodies[i].quaternion

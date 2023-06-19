@@ -11,6 +11,7 @@ export default class ShootingObject {
     this.controls = this.camera.controls;
     this.physicsWorld = this.experience.physicsWorld;
 
+    // Meshes and bodies will be stored here, for future physics simulation.
     this.shootingObjectsMeshes = [];
     this.shootingObjectsBodies = [];
 
@@ -19,20 +20,22 @@ export default class ShootingObject {
 
   setModel() {
     this.model = this.resources.items['pickaxe-model'].scene;
-    this.model.scale.set(0.005, 0.005, 0.005);
+    this.model.scale.set(0.005, 0.005, 0.005); // The model is huge by itself, so we making it smaller.
   }
 
   shoot() {
+    // Creating shooting object body
     const body = new CANNON.Body({
       mass: 1,
-      position: this.getMeshSpawnPosition(),
+      position: this.getMeshSpawnPosition(), // Finds the direction in which camera is looking at.
       shape: this.physicsWorld.physicsShootingObject.shape,
       material: this.physicsWorld.physicsShootingObject.material,
     });
-    this.setLocalForce(body);
+    this.setLocalForce(body); // Setting perfect localForce to push body forward
     this.shootingObjectsBodies.push(body);
     this.physicsWorld.instance.addBody(body);
 
+    // Creating shooting object mesh
     const pickaxe = this.model.clone();
     pickaxe.position.copy(body.position);
     pickaxe.receiveShadow = true;
@@ -42,7 +45,6 @@ export default class ShootingObject {
   }
 
   getMeshSpawnPosition() {
-    // Finding the direction in which camera is looking at
     const cameraDirection = new THREE.Vector3(); // the way in which camera looking will be stored here
     const quaternion = new THREE.Quaternion(); // camera rotation will be stored here
     this.camera.instance.getWorldQuaternion(quaternion); // getting camera's rotation in world space

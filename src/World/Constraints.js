@@ -10,7 +10,9 @@ export default class Constaints {
     this.resources = this.experience.resources;
     this.physicsWorld = this.experience.physicsWorld;
 
-    this.previous = null;
+    this.previous = null; // Used for creating constraints
+
+    // Cubes bodies and meshes will be stored here
     this.constraintsBodies = [];
     this.constraintsMeshes = [];
 
@@ -18,8 +20,8 @@ export default class Constaints {
     this.setGeometry();
     this.setTexture();
     this.setMaterial();
-    this.putPlatform();
-    this.putConstraints()
+    this.createPlatform(); // Creating two cubes, on which constraint are going to stand
+    this.createConstraints();
   }
 
   setGeometry() {
@@ -35,8 +37,9 @@ export default class Constaints {
     this.material = new THREE.MeshStandardMaterial({ map: this.texture, });
   }
 
-  putPlatform() {
+  createPlatform() {
     for (let i = 1; i <= 2; i++) {
+      // Creating platform cube body
       const body = new CANNON.Body({
         mass: 0.5,
         position: new CANNON.Vec3(-cubeParameters.cubeWidth * 3 * i, cubeParameters.cubeHeight / 2, 0),
@@ -45,6 +48,7 @@ export default class Constaints {
       });
       this.physicsWorld.instance.addBody(body);
 
+      // Creating platform cube mesh
       const mesh = new THREE.Mesh(this.geometry, this.material);
       mesh.position.copy(body.position);
       mesh.receiveShadow = true;
@@ -56,8 +60,9 @@ export default class Constaints {
     }
   }
 
-  putConstraints() {
+  createConstraints() {
     for (let x = 0; x < 4; x++) {
+      // Creating cube body
       const body = new CANNON.Body({
         mass: 0.5,
         position: new CANNON.Vec3(
@@ -70,6 +75,7 @@ export default class Constaints {
       });
       this.physicsWorld.instance.addBody(body);
 
+      // Creating cube mesh
       const mesh = new THREE.Mesh(this.geometry, this.material);
       mesh.position.copy(body.position);
       mesh.receiveShadow = true;
@@ -79,6 +85,7 @@ export default class Constaints {
       this.constraintsBodies.push(body);
       this.constraintsMeshes.push(mesh);
 
+      // "Gluing" this cube's body and previous one
       if (this.previous) {
         const constraint = new CANNON.LockConstraint(body, this.previous);
         this.physicsWorld.instance.addConstraint(constraint);

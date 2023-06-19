@@ -14,8 +14,8 @@ export default class Camera extends EventEmitter {
     this.setInstance(); // Creating camera
     this.setPointerLockControls(); // Adding OrbitControls
 
-    this.controls.addEventListener('lock', () => this.trigger('lock'))
-    this.controls.addEventListener('unlock', () => this.trigger('unlock'))
+    this.controls.addEventListener('lock', () => this.trigger('lock')); // If controls are locked - hint div is hidden.
+    this.controls.addEventListener('unlock', () => this.trigger('unlock')); // If controls are unlocked - hint div is shown.
     window.addEventListener('keydown', (e) => this.pressKey(e.code));
     window.addEventListener('keyup', (e) => this.unpressKey(e.code));
   }

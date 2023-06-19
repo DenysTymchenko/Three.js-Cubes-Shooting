@@ -1,10 +1,10 @@
 import * as CANNON from 'cannon-es';
 import cubeParameters from '../Utils/CubeParameters.js';
-import PhysicsWorlds from './PhysicsWorlds.js';
+import PhysicsWorld from './PhysicsWorld.js';
 
 export default class PhysicsConstraints {
   constructor() {
-    this.physicsWorld = new PhysicsWorlds();
+    this.physicsWorld = new PhysicsWorld();
 
     this.setShape();
     this.setMaterial();
@@ -15,7 +15,7 @@ export default class PhysicsConstraints {
       cubeParameters.cubeWidth / 2,
       cubeParameters.cubeHeight / 2,
       cubeParameters.cubeDepth / 2,
-    ));
+    )); // making x,y,z parameters two times less, because that way it'll be perfect to the mesh.
   }
 
   setMaterial() {

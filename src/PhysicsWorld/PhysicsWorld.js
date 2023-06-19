@@ -7,16 +7,17 @@ import PhysicsConstraints from './PhysicsConstraints.js';
 
 let physicsWorldInstance = null;
 
-export default class PhysicsWorlds {
+export default class PhysicsWorld {
   constructor() {
     if (physicsWorldInstance) return physicsWorldInstance;
     physicsWorldInstance = this;
 
     this.setInstance();
 
-    this.materials = new Materials();
+    this.materials = new Materials(); // materials for contact materials creation are stored there.
     this.createContactMaterials();
 
+    // All shapes and materials for future bodies are created there.
     this.physicsFloor = new PhysicsFloor();
     this.physicsCubesTower = new PhysicsCubesTower();
     this.physicsShootingObject = new PhysicsShootingObject();

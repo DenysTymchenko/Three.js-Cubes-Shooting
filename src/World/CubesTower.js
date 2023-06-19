@@ -25,7 +25,7 @@ export default class CubesTower {
 
   setTexture() {
     this.texture = this.resources.items['diamond-ore'];
-    this.texture.magFilter = THREE.NearestFilter;
+    this.texture.magFilter = THREE.NearestFilter; // Used to make texture quality better. If you delete this line, the texture will be blury
   }
 
   setMaterial() {
@@ -39,6 +39,7 @@ export default class CubesTower {
     for (let x = 0; x < cubeParameters.cubeWidth * 3; x += cubeParameters.cubeWidth) {
       for (let y = 0; y < cubeParameters.cubeHeight * cubeParameters.towerHeight; y += cubeParameters.cubeHeight) {
         for (let z = 0; z < cubeParameters.cubeDepth * 3; z += cubeParameters.cubeDepth) {
+          // Creating cube body
           const body = new CANNON.Body({
             mass: 0.5,
             position: new CANNON.Vec3(x, y + this.yOffset, z),
@@ -49,6 +50,7 @@ export default class CubesTower {
           this.cubesBodies.push(body);
           this.physicsWorld.instance.addBody(body);
 
+          // Creating cube mesh
           const mesh = new THREE.Mesh(this.geometry, this.material);
           mesh.position.copy(body.position);
           mesh.receiveShadow = true;

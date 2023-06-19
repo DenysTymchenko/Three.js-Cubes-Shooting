@@ -1,9 +1,9 @@
 import * as CANNON from 'cannon-es';
-import PhysicsWorlds from './PhysicsWorlds.js';
+import PhysicsWorld from './PhysicsWorld.js';
 
 export default class PhysicsFloor {
   constructor() {
-    this.physicsWorld = new PhysicsWorlds();
+    this.physicsWorld = new PhysicsWorld();
 
     this.setShape();
     this.setMaterial();

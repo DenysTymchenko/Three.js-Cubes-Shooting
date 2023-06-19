@@ -46,6 +46,7 @@ export default class Floor {
   }
 
   createFloor() {
+    // Creating floor body
     this.body = new CANNON.Body(
       {
         mass: 0,
@@ -55,6 +56,7 @@ export default class Floor {
     this.body.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI / 2);
     this.physicsWorld.instance.addBody(this.body);
 
+    // Creating floor mesh
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.quaternion.copy(this.body.quaternion);
     this.mesh.receiveShadow = true;

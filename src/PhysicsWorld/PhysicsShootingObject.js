@@ -1,13 +1,10 @@
-import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
-import PhysicsWorlds from './PhysicsWorlds.js';
+import PhysicsWorld from './PhysicsWorld.js';
 import Experience from '../Experience.js';
-import cubeParameters from '../Utils/CubeParameters.js';
 
 export default class PhysicsShootingObject {
   constructor() {
-    this.experience = new Experience();
-    this.physicsWorld = new PhysicsWorlds();
+    this.physicsWorld = new PhysicsWorld();
 
     this.setShape();
     this.setMaterial();
