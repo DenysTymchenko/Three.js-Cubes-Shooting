@@ -42,4 +42,10 @@ export default [
     type: 'texture',
     path: 'src/Textures/grass/roughness.jpg',
   },
+
+  {
+    name: 'pickaxe-model',
+    type: 'gltfModel',
+    path: 'src/Textures/pickaxe-model.glb'
+  }
 ]

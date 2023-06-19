@@ -6,6 +6,7 @@ export default class ShootingObject {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.resources = this.experience.resources;
     this.camera = this.experience.camera;
     this.controls = this.camera.controls;
     this.physicsWorld = this.experience.physicsWorld;
@@ -13,20 +14,12 @@ export default class ShootingObject {
     this.shootingObjectsMeshes = [];
     this.shootingObjectsBodies = [];
 
-    this.setGeometry();
-    this.setMaterial();
+    this.setModel();
   }
 
-  setGeometry() {
-    this.geometry = new THREE.SphereGeometry(0.1, 15, 15);
-  }
-
-  setMaterial() {
-    this.material = new THREE.MeshStandardMaterial({
-      color: '#0bcbea',
-      metalness: 0.3,
-      roughness: 0.4,
-    });
+  setModel() {
+    this.model = this.resources.items['pickaxe-model'].scene;
+    this.model.scale.set(0.005, 0.005, 0.005);
   }
 
   shoot() {
@@ -37,17 +30,15 @@ export default class ShootingObject {
       material: this.physicsWorld.physicsShootingObject.material,
     });
     this.setLocalForce(body);
-
     this.shootingObjectsBodies.push(body);
     this.physicsWorld.instance.addBody(body);
 
-    const mesh = new THREE.Mesh(this.geometry, this.material);
-    mesh.position.copy(body.position);
-    mesh.receiveShadow = true;
-    mesh.castShadow = true;
-
-    this.shootingObjectsMeshes.push(mesh);
-    this.scene.add(mesh);
+    const pickaxe = this.model.clone();
+    pickaxe.position.copy(body.position);
+    pickaxe.receiveShadow = true;
+    pickaxe.castShadow = true;
+    this.shootingObjectsMeshes.push(pickaxe);
+    this.scene.add(pickaxe);
   }
 
   getMeshSpawnPosition() {

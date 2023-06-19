@@ -56,7 +56,7 @@ export default class Floor {
     this.physicsWorld.instance.addBody(this.body);
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
-    this.mesh.rotation.x = -Math.PI / 2;
+    this.mesh.quaternion.copy(this.body.quaternion);
     this.mesh.receiveShadow = true;
     this.scene.add(this.mesh);
   }

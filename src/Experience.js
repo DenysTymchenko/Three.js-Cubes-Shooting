@@ -79,6 +79,10 @@ export default class Experience {
       this.world.shootingObject.shootingObjectsMeshes[i].position.copy(
         this.world.shootingObject.shootingObjectsBodies[i].position
       )
+
+      this.world.shootingObject.shootingObjectsMeshes[i].quaternion.copy(
+        this.world.shootingObject.shootingObjectsBodies[i].quaternion
+      )
     }
   }
 
