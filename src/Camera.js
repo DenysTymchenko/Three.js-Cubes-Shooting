@@ -16,7 +16,8 @@ export default class Camera extends EventEmitter {
 
     this.controls.addEventListener('lock', () => this.trigger('lock'))
     this.controls.addEventListener('unlock', () => this.trigger('unlock'))
-    window.addEventListener('keydown', (e) => this.move(e.code));
+    window.addEventListener('keydown', (e) => this.controls.pressedKey = e.code);
+    window.addEventListener('keyup', () => this.controls.pressedKey = '')
   }
 
   setInstance() {
@@ -33,6 +34,7 @@ export default class Camera extends EventEmitter {
 
   setPointerLockControls() {
     this.controls = new PointerLockControls(this.instance, this.canvas);
+    this.controls.pressedKey = '';
   }
 
   resize() {
@@ -42,25 +44,25 @@ export default class Camera extends EventEmitter {
 
   move(key) {
     if (this.controls.isLocked) {
-      switch (key) {
+      switch (this.controls.pressedKey) {
         case 'KeyW':
         case 'ArrowUp':
-          this.controls.moveForward(0.5);
+          this.controls.moveForward(0.3);
           break;
 
         case 'KeyA':
         case 'ArrowLeft':
-          this.controls.moveRight(-0.5);
+          this.controls.moveRight(-0.3);
           break;
 
         case 'KeyS':
         case 'ArrowDown':
-          this.controls.moveForward(-0.5);
+          this.controls.moveForward(-0.3);
           break;
 
         case 'KeyD':
         case 'ArrowRight':
-          this.controls.moveRight(0.5);
+          this.controls.moveRight(0.3);
           break;
       }
     }

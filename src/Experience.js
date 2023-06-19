@@ -55,7 +55,8 @@ export default class Experience {
   }
 
   update() {
-    this.simulatePhysics();
+    this.camera.move();
+    if (this.camera.controls.isLocked) this.simulatePhysics();
     this.renderer.update();
   }
 
