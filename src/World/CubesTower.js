@@ -7,22 +7,29 @@ export default class CubesTower {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.resources = this.experience.resources;
     this.physicsWorld = this.experience.physicsWorld;
 
     this.cubesBodies = []
     this.cubesMeshes = [];
 
     this.setGeometry();
+    this.setTexture();
     this.setMaterial();
     this.createTower();
   }
 
   setGeometry() {
-    this.geometry = new THREE.BoxGeometry( cubeParameters.cubeWidth, cubeParameters.cubeHeight, cubeParameters.cubeDepth);
+    this.geometry = new THREE.BoxGeometry(cubeParameters.cubeWidth, cubeParameters.cubeHeight, cubeParameters.cubeDepth);
+  }
+
+  setTexture() {
+    this.texture = this.resources.items['diamond-ore'];
+    this.texture.magFilter = THREE.NearestFilter;
   }
 
   setMaterial() {
-    this.material = new THREE.MeshStandardMaterial({ color: '#d13610', metalness: 0.3, roughness: 0.4, });
+    this.material = new THREE.MeshStandardMaterial({ map: this.texture, });
   }
 
   createTower() {
