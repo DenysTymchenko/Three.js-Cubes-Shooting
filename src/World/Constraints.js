@@ -47,6 +47,8 @@ export default class Constaints {
 
       const mesh = new THREE.Mesh(this.geometry, this.material);
       mesh.position.copy(body.position);
+      mesh.receiveShadow = true;
+      mesh.castShadow = true;
       this.scene.add(mesh);
 
       this.constraintsBodies.push(body);
