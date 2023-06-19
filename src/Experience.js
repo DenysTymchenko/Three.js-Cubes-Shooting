@@ -76,10 +76,12 @@ export default class Experience {
 
     // Shooting objects physics
     for (let i = 0; i < this.world.shootingObject.shootingObjectsMeshes.length; i++) {
+      // updating position
       this.world.shootingObject.shootingObjectsMeshes[i].position.copy(
         this.world.shootingObject.shootingObjectsBodies[i].position
       )
 
+      // updating rotation
       this.world.shootingObject.shootingObjectsMeshes[i].quaternion.copy(
         this.world.shootingObject.shootingObjectsBodies[i].quaternion
       )

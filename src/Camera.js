@@ -16,8 +16,8 @@ export default class Camera extends EventEmitter {
 
     this.controls.addEventListener('lock', () => this.trigger('lock'))
     this.controls.addEventListener('unlock', () => this.trigger('unlock'))
-    window.addEventListener('keydown', (e) => this.controls.pressedKey = e.code);
-    window.addEventListener('keyup', () => this.controls.pressedKey = '')
+    window.addEventListener('keydown', (e) => this.pressKey(e.code));
+    window.addEventListener('keyup', (e) => this.unpressKey(e.code));
   }
 
   setInstance() {
@@ -34,7 +34,12 @@ export default class Camera extends EventEmitter {
 
   setPointerLockControls() {
     this.controls = new PointerLockControls(this.instance, this.canvas);
-    this.controls.pressedKey = '';
+    this.controls.pressedKeys = {
+      W: false,
+      A: false,
+      S: false,
+      D: false,
+    }
   }
 
   resize() {
@@ -42,29 +47,65 @@ export default class Camera extends EventEmitter {
     this.instance.updateProjectionMatrix();
   }
 
-  move(key) {
+  pressKey(key) {
     if (this.controls.isLocked) {
-      switch (this.controls.pressedKey) {
+      switch (key) {
         case 'KeyW':
         case 'ArrowUp':
-          this.controls.moveForward(0.3);
+          this.controls.pressedKeys.W = true;
           break;
 
         case 'KeyA':
         case 'ArrowLeft':
-          this.controls.moveRight(-0.3);
+          this.controls.pressedKeys.A = true;
           break;
 
         case 'KeyS':
         case 'ArrowDown':
+          this.controls.pressedKeys.S = true;
           this.controls.moveForward(-0.3);
           break;
 
         case 'KeyD':
         case 'ArrowRight':
+          this.controls.pressedKeys.D = true;
           this.controls.moveRight(0.3);
           break;
       }
     }
+  }
+  unpressKey(key) {
+    if (this.controls.isLocked) {
+      switch (key) {
+        case 'KeyW':
+        case 'ArrowUp':
+          this.controls.pressedKeys.W = false;
+          break;
+
+        case 'KeyA':
+        case 'ArrowLeft':
+          this.controls.pressedKeys.A = false;
+          break;
+
+        case 'KeyS':
+        case 'ArrowDown':
+          this.controls.pressedKeys.S = false;
+          this.controls.moveForward(-0.3);
+          break;
+
+        case 'KeyD':
+        case 'ArrowRight':
+          this.controls.pressedKeys.D = false;
+          this.controls.moveRight(0.3);
+          break;
+      }
+    }
+  }
+
+  move() {
+    if (this.controls.pressedKeys.W) this.controls.moveForward(0.3);
+    if (this.controls.pressedKeys.A) this.controls.moveRight(-0.3);
+    if (this.controls.pressedKeys.S) this.controls.moveForward(-0.3);
+    if (this.controls.pressedKeys.D) this.controls.moveRight(0.3);
   }
 }
