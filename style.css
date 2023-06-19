@@ -11,8 +11,8 @@
   justify-content: center;
   font-family: monospace;
   color: white;
-  text-align: center;
   background-color: rgba(59, 57, 57, 0.6);
+  text-align: center;
 }
 
 .hint > h1 {

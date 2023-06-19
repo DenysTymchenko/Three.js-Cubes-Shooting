@@ -1,11 +1,10 @@
 import * as THREE from 'three';
-import * as CANNON from 'cannon-es';
 import Sizes from './Utils/Sizes.js';
 import Time from './Utils/Time.js';
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
 import World from './World/World.js';
-import PhysicObjects from './PhysicWorld/PhysicObjects.js';
+import PhysicsWorlds from './PhysicsWorld/PhysicsWorlds.js';
 
 let instance = null
 
@@ -14,49 +13,40 @@ export default class Experience {
     if (instance) return instance;
     instance = this;
 
-    this.hint = {
-      DOM: hint,
-      hidden: false,
-    }
+    this.hint = hint;
     this.canvas = canvas;
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
     this.camera = new Camera();
     this.renderer = new Renderer();
+    this.physicsWorld = new PhysicsWorlds();
     this.world = new World();
-    this.createPhysicsWorld();
-    this.physicObjects = new PhysicObjects();
 
     this.configureScene();
 
-    this.hint.DOM.addEventListener('click', () => this.handleHint());
-    this.hint.DOM.addEventListener('pointerlockchange', () => console.log('check'))
+    window.addEventListener('click', () => {
+      this.camera.controls.isLocked ? this.world.shootingObject.shoot() : this.camera.controls.lock();
+    });
 
     this.sizes.on('resize', () => this.resize());
     this.time.on('tick', () => this.update());
-  }
-
-  createPhysicsWorld() {
-    this.physicsWorld = new CANNON.World();
-    this.physicsWorld.gravity.set(0, -9.82, 0);
-    this.physicsWorld.allowSleep = true
+    this.camera.on('lock', () => this.hideHint());
+    this.camera.on('unlock', () => this.showHint());
   }
 
   configureScene() {
     this.scene.fog = new THREE.Fog(0x000000, 0, 100);
   }
 
-  handleHint() {
-    if (this.hint.hidden) {
-      this.hint.DOM.style.display = 'block';
-      this.camera.controls.unlock();
-    } else {
-      this.hint.DOM.style.display = 'none';
-      this.camera.controls.lock();
-    }
+  hideHint() {
+    this.hint.style.display = 'none';
+    this.camera.controls.lock();
+  }
 
-    this.hint.hidden = !this.hint.hidden;
+  showHint() {
+    this.hint.style.display = 'flex';
+    this.camera.controls.unlock();
   }
 
   resize() {
@@ -71,18 +61,26 @@ export default class Experience {
 
   simulatePhysics() {
     // Update physics
-    this.physicsWorld.step(1 / 60, this.time.delta / 1000, 3);
+    this.physicsWorld.instance.step(1 / 60, this.time.delta / 1000, 3);
 
-    for (let i = 0; i < this.world.cubesTower.cubes.length; i++) {
+    // Cubes physics
+    for (let i = 0; i < this.world.cubesTower.cubesMeshes.length; i++) {
       // updating position
-      this.world.cubesTower.cubes[i].position.copy(
-        this.physicObjects.physicsCubesTower.bodies[i].position
+      this.world.cubesTower.cubesMeshes[i].position.copy(
+        this.world.cubesTower.cubesBodies[i].position
       );
 
       // updating rotation
-      this.world.cubesTower.cubes[i].quaternion.copy(
-        this.physicObjects.physicsCubesTower.bodies[i].quaternion
+      this.world.cubesTower.cubesMeshes[i].quaternion.copy(
+        this.world.cubesTower.cubesBodies[i].quaternion
       );
+    }
+
+    // Shooting objects physics
+    for (let i = 0; i < this.world.shootingObject.shootingObjectsMeshes.length; i++) {
+      this.world.shootingObject.shootingObjectsMeshes[i].position.copy(
+        this.world.shootingObject.shootingObjectsBodies[i].position
+      )
     }
   }
 
