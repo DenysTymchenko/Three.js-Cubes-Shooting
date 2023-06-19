@@ -30,7 +30,6 @@ export default class Environment {
     this.directionalLight.shadow.camera.far = 20;
     this.directionalLight.shadow.camera.near = -5;
 
-    const helper = new THREE.CameraHelper(this.directionalLight.shadow.camera);
-    this.scene.add(this.directionalLight, helper);
+    this.scene.add(this.directionalLight);
   }
 }
