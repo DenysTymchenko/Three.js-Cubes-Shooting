@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
 import Experience from '../Experience.js';
 import cubeParameters from '../Utils/CubeParameters.js';
 
@@ -6,8 +7,10 @@ export default class CubesTower {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.physicsWorld = this.experience.physicsWorld;
 
-    this.cubes = [];
+    this.cubesBodies = []
+    this.cubesMeshes = [];
 
     this.setGeometry();
     this.setMaterial();
@@ -29,12 +32,22 @@ export default class CubesTower {
     for (let x = 0; x < cubeParameters.cubeWidth * 3; x += cubeParameters.cubeWidth) {
       for (let y = 0; y < cubeParameters.cubeHeight * cubeParameters.towerHeight; y += cubeParameters.cubeHeight) {
         for (let z = 0; z < cubeParameters.cubeDepth * 3; z += cubeParameters.cubeDepth) {
+          const body = new CANNON.Body({
+            mass: 0.5,
+            position: new CANNON.Vec3(x, y + this.yOffset, z),
+            shape: this.physicsWorld.physicsCubesTower.shape,
+            material: this.physicsWorld.physicsCubesTower.material,
+          });
+
+          this.cubesBodies.push(body);
+          this.physicsWorld.instance.addBody(body);
+
           const mesh = new THREE.Mesh(this.geometry, this.material);
-          mesh.position.set(x, y + this.yOffset, z);
+          mesh.position.copy(body.position);
           mesh.receiveShadow = true;
           mesh.castShadow = true;
 
-          this.cubes.push(mesh);
+          this.cubesMeshes.push(mesh);
           this.scene.add(mesh);
         }
       }

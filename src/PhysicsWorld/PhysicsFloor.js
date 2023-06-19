@@ -1,12 +1,9 @@
 import * as CANNON from 'cannon-es';
-import Experience from '../Experience.js';
-import PhysicObjects from './PhysicObjects.js';
+import PhysicsWorlds from './PhysicsWorlds.js';
 
-export default class PhysicFloor {
+export default class PhysicsFloor {
   constructor() {
-    this.experience = new Experience()
-    this.physicsWorld = this.experience.physicsWorld;
-    this.physicObjects = new PhysicObjects();
+    this.physicsWorld = new PhysicsWorlds();
 
     this.setShape();
     this.setMaterial();
@@ -18,7 +15,7 @@ export default class PhysicFloor {
   }
 
   setMaterial() {
-    this.material = this.physicObjects.materials.floorMaterial;
+    this.material = this.physicsWorld.materials.floorMaterial;
   }
 
   setBody() {
@@ -30,6 +27,6 @@ export default class PhysicFloor {
       });
     this.body.quaternion.setFromAxisAngle(new CANNON.Vec3(- 1, 0, 0), Math.PI / 2);
 
-    this.physicsWorld.addBody(this.body);
+    this.physicsWorld.instance.addBody(this.body);
   }
 }

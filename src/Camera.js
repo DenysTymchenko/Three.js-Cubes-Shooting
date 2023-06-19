@@ -1,18 +1,21 @@
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 import Experience from './Experience';
+import EventEmitter from './Utils/EventEmmiter.js';
 
-export default class Camera {
+export default class Camera extends EventEmitter {
   constructor() {
+    super();
     this.experience = new Experience();
     this.sizes = this.experience.sizes;
     this.scene = this.experience.scene;
     this.canvas = this.experience.canvas;
 
-
     this.setInstance(); // Creating camera
     this.setPointerLockControls(); // Adding OrbitControls
 
+    this.controls.addEventListener('lock', () => this.trigger('lock'))
+    this.controls.addEventListener('unlock', () => this.trigger('unlock'))
     window.addEventListener('keydown', (e) => this.move(e.code));
   }
 
@@ -38,30 +41,28 @@ export default class Camera {
   }
 
   move(key) {
-    switch (key) {
-      case 'KeyW':
-      case 'ArrowUp':
-        this.controls.moveForward(0.5);
-        break;
+    if (this.controls.isLocked) {
+      switch (key) {
+        case 'KeyW':
+        case 'ArrowUp':
+          this.controls.moveForward(0.5);
+          break;
 
-      case 'KeyA':
-      case 'ArrowLeft':
-        this.controls.moveRight(-0.5);
-        break;
+        case 'KeyA':
+        case 'ArrowLeft':
+          this.controls.moveRight(-0.5);
+          break;
 
-      case 'KeyS':
-      case 'ArrowDown':
-        this.controls.moveForward(-0.5);
-        break;
+        case 'KeyS':
+        case 'ArrowDown':
+          this.controls.moveForward(-0.5);
+          break;
 
-      case 'KeyD':
-      case 'ArrowRight':
-        this.controls.moveRight(0.5);
-        break;
-
-      case 'Escape':
-        this.experience.handleHint()
-        break;
+        case 'KeyD':
+        case 'ArrowRight':
+          this.controls.moveRight(0.5);
+          break;
+      }
     }
   }
 }
