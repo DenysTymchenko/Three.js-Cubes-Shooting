@@ -18,6 +18,7 @@ export default class Resources extends EventEmitter {
     this.loaders = {}
 
     this.loaders.textureLoader = new THREE.TextureLoader();
+    this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader();
   }
 
   startLoading() {
@@ -26,8 +27,15 @@ export default class Resources extends EventEmitter {
         case 'texture':
           this.loaders.textureLoader.load(
             source.path,
-            (file) => this.sourceLoaded(source, file)
+            (file) => this.sourceLoaded(source, file),
           );
+
+        case 'cubeTexture': {
+          this.loaders.cubeTextureLoader.load(
+            source.path,
+            (file) => this.sourceLoaded(source, file),
+          )
+        }
       }
     })
   }

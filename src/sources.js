@@ -1,5 +1,19 @@
 export default [
   {
+    name: 'background',
+    type: 'cubeTexture',
+    path:
+      [
+        'src/Textures/background/px.jpg',
+        'src/Textures/background/nx.jpg',
+        'src/Textures/background/py.jpg',
+        'src/Textures/background/ny.jpg',
+        'src/Textures/background/pz.jpg',
+        'src/Textures/background/nz.jpg'
+      ]
+  },
+
+  {
     name: 'diamond-ore',
     type: 'texture',
     path: 'src/Textures/diamond-ore.png',

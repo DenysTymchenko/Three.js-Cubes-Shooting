@@ -26,8 +26,6 @@ export default class Experience {
     this.physicsWorld = new PhysicsWorlds();
     this.world = new World();
 
-    this.configureScene();
-
     window.addEventListener('click', () => {
       this.camera.controls.isLocked ? this.world.shootingObject.shoot() : this.camera.controls.lock();
     });
@@ -36,10 +34,6 @@ export default class Experience {
     this.time.on('tick', () => this.update());
     this.camera.on('lock', () => this.hideHint());
     this.camera.on('unlock', () => this.showHint());
-  }
-
-  configureScene() {
-    this.scene.fog = new THREE.Fog(0x000000, 0, 100);
   }
 
   hideHint() {
