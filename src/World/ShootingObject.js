@@ -42,7 +42,7 @@ export default class ShootingObject {
     this.physicsWorld.instance.addBody(body);
 
     const mesh = new THREE.Mesh(this.geometry, this.material);
-    mesh.position.copy(this.getMeshSpawnPosition());
+    mesh.position.copy(body.position);
     mesh.receiveShadow = true;
     mesh.castShadow = true;
 

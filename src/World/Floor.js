@@ -1,16 +1,18 @@
 import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
 import Experience from '../Experience.js';
 
 export default class Floor {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.physicsWorld = this.experience.physicsWorld;
     this.resources = this.experience.resources;
 
     this.setGeometry();
     this.setTexture();
     this.setMaterial();
-    this.setMesh();
+    this.createFloor();
   }
 
   setGeometry() {
@@ -43,11 +45,19 @@ export default class Floor {
     });
   }
 
-  setMesh() {
+  createFloor() {
+    this.body = new CANNON.Body(
+      {
+        mass: 0,
+        shape: this.physicsWorld.physicsFloor.shape,
+        material: this.physicsWorld.physicsFloor.material,
+      });
+    this.body.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI / 2);
+    this.physicsWorld.instance.addBody(this.body);
+
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.rotation.x = -Math.PI / 2;
     this.mesh.receiveShadow = true;
-
     this.scene.add(this.mesh);
   }
 }
