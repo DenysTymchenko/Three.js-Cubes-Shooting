@@ -65,7 +65,7 @@ export default class ShootingObject {
     const cameraDirection = new THREE.Vector3();
     const quaternion = new THREE.Quaternion();
     this.camera.instance.getWorldQuaternion(quaternion);
-    cameraDirection.set(0, 0, -400).applyQuaternion(quaternion);
+    cameraDirection.set(0, 0, -600).applyQuaternion(quaternion);
 
     force.copy(cameraDirection);
     body.applyLocalForce(force);
