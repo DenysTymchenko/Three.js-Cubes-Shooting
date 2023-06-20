@@ -10,8 +10,6 @@ export default class Constaints {
     this.resources = this.experience.resources;
     this.physicsWorld = this.experience.physicsWorld;
 
-    this.previous = null; // Used for creating constraints
-
     // Cubes bodies and meshes will be stored here
     this.constraintsBodies = [];
     this.constraintsMeshes = [];
@@ -61,6 +59,8 @@ export default class Constaints {
   }
 
   createConstraints() {
+    let previous = null; // Used for creating constraints
+
     for (let x = 0; x < 4; x++) {
       // Creating cube body
       const body = new CANNON.Body({
@@ -86,12 +86,12 @@ export default class Constaints {
       this.constraintsMeshes.push(mesh);
 
       // "Gluing" this cube's body and previous one
-      if (this.previous) {
-        const constraint = new CANNON.LockConstraint(body, this.previous);
+      if (previous) {
+        const constraint = new CANNON.LockConstraint(body, previous);
         this.physicsWorld.instance.addConstraint(constraint);
       }
 
-      this.previous = body;
+      previous = body;
     }
   }
 }
