@@ -1,0 +1,11 @@
+Model Information:
+* title:	Minecraft Pickaxe
+* source:	https://sketchfab.com/3d-models/minecraft-pickaxe-6d12dcc9e1954bff9b93f1aa3493f7f2
+* author:	LeoPasc02 (https://sketchfab.com/LeoPasc02)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Minecraft Pickaxe" (https://sketchfab.com/3d-models/minecraft-pickaxe-6d12dcc9e1954bff9b93f1aa3493f7f2) by LeoPasc02 (https://sketchfab.com/LeoPasc02) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

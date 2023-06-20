@@ -20,7 +20,7 @@ export default class ShootingObject {
 
   setModel() {
     this.model = this.resources.items['pickaxe-model'].scene;
-    this.model.scale.set(0.005, 0.005, 0.005); // The model is huge by itself, so we making it smaller.
+    this.model.scale.set(0.015, 0.015, 0.015); // The model is huge by itself, so we making it smaller.
   }
 
   shoot() {

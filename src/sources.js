@@ -46,6 +46,6 @@ export default [
   {
     name: 'pickaxe-model',
     type: 'gltfModel',
-    path: '/Textures/pickaxe-model.glb'
+    path: '/Textures/pickaxe/scene.gltf'
   }
 ]
