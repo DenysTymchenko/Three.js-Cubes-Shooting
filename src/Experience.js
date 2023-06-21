@@ -61,42 +61,39 @@ export default class Experience {
     this.physicsWorld.instance.step(1 / 60, this.time.delta / 1000, 3);
 
     // Cubes physics
-    for (let i = 0; i < this.world.cubesTower.cubesMeshes.length; i++) {
+    const cubesMeshes = this.world.cubesTower.cubesMeshes;
+    const cubesBodies = this.world.cubesTower.cubesBodies;
+
+    for (let i = 0; i < cubesMeshes.length; i++) {
       // updating position
-      this.world.cubesTower.cubesMeshes[i].position.copy(
-        this.world.cubesTower.cubesBodies[i].position
-      );
+      cubesMeshes[i].position.copy(cubesBodies[i].position);
 
       // updating rotation
-      this.world.cubesTower.cubesMeshes[i].quaternion.copy(
-        this.world.cubesTower.cubesBodies[i].quaternion
-      );
+      cubesMeshes[i].quaternion.copy(cubesBodies[i].quaternion);
     }
 
     // Shooting objects physics
-    for (let i = 0; i < this.world.shootingObject.shootingObjectsMeshes.length; i++) {
+    const shootingObjectsMeshes = this.world.shootingObject.shootingObjectsMeshes;
+    const shootingObjectsBodies = this.world.shootingObject.shootingObjectsBodies;
+
+    for (let i = 0; i < shootingObjectsMeshes.length; i++) {
       // updating position
-      this.world.shootingObject.shootingObjectsMeshes[i].position.copy(
-        this.world.shootingObject.shootingObjectsBodies[i].position
-      )
+      shootingObjectsMeshes[i].position.copy(shootingObjectsBodies[i].position);
 
       // updating rotation
-      this.world.shootingObject.shootingObjectsMeshes[i].quaternion.copy(
-        this.world.shootingObject.shootingObjectsBodies[i].quaternion
-      )
+      shootingObjectsMeshes[i].quaternion.copy(shootingObjectsBodies[i].quaternion)
     }
 
     // Constraints physics
-    for (let i = 0; i < this.world.constraints.constraintsMeshes.length; i++) {
+    const constraintsMeshes = this.world.constraints.constraintsMeshes;
+    const constraintsBodies = this.world.constraints.constraintsBodies;
+
+    for (let i = 0; i < constraintsMeshes.length; i++) {
       // updating position
-      this.world.constraints.constraintsMeshes[i].position.copy(
-        this.world.constraints.constraintsBodies[i].position
-      );
+      constraintsMeshes[i].position.copy(constraintsBodies[i].position);
 
       // updating rotation
-      this.world.constraints.constraintsMeshes[i].quaternion.copy(
-        this.world.constraints.constraintsBodies[i].quaternion
-      );
+      constraintsMeshes[i].quaternion.copy(constraintsBodies[i].quaternion);
     }
   }
 
